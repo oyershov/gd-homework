@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DateFilter, DateFilterHelpers } from "@gooddata/sdk-ui-filters";
 import * as Ldm from "../../ldm/full";
+import styles from "./FilterBar.module.scss";
 
 const availableGranularities = ["GDC.time.year"];
 
@@ -8,7 +9,7 @@ const defaultDateFilterOptions = {
     allTime: {
         localIdentifier: "ALL_TIME",
         type: "allTime",
-        name: "",
+        name: "All time",
         visible: true,
     },
 
@@ -21,7 +22,7 @@ const defaultDateFilterOptions = {
                 localIdentifier: "THIS_YEAR",
                 type: "relativePreset",
                 visible: true,
-                name: "",
+                name: "This year",
             },
             {
                 from: -1,
@@ -30,7 +31,7 @@ const defaultDateFilterOptions = {
                 localIdentifier: "LAST_YEAR",
                 type: "relativePreset",
                 visible: true,
-                name: "",
+                name: "Last year",
             },
             {
                 from: -2,
@@ -65,8 +66,6 @@ const defaultDateFilterOptions = {
     },
 };
 
-const style = { width: 300 };
-
 export const FilterBarComponent = (props) => {
     const [state, setState] = useState({
         selectedFilterOption: defaultDateFilterOptions.allTime,
@@ -85,11 +84,11 @@ export const FilterBarComponent = (props) => {
             excludeCurrentPeriod,
         );
 
-        props.applyDateFilter(dateFilter);
+        props.applyDateFilter(dateFilter, selectedFilterOption.name);
     };
 
     return (
-        <div style={style}>
+        <div className={styles.FilterBar}>
             <DateFilter
                 excludeCurrentPeriod={state.excludeCurrentPeriod}
                 selectedFilterOption={state.selectedFilterOption}
