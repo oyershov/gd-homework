@@ -4,6 +4,11 @@ import { useExecution, useDataView } from "@gooddata/sdk-ui";
 import { newRelativeDateFilter } from "@gooddata/sdk-model";
 import compact from "lodash/compact";
 import styles from "./CustomComponent.module.scss";
+import {
+    getFormattedCalculations,
+    handleCalcAbsolute,
+    handleCalcQuantiles,
+} from './utils';
 
 import * as Ldm from "../../ldm/full";
 
@@ -17,12 +22,12 @@ const CALCULATION_OPTIONS = [
         value: 2,
     },
     {
-        label: 'Quantiles',
+        label: 'Quantiles (Median)',
         value: 3,
     }
 ];
 
-const EMPTY_DATA_VALUE = 'N/A';
+export const EMPTY_DATA_VALUE = 'N/A';
 
 const selectorStyles = {
     control: styles => ({ ...styles, height: '40px', width: '100%' }),
@@ -47,37 +52,6 @@ export const CustomComponent = (props) => {
     
     const { result } = useDataView({ execution }, [execution?.fingerprint()]);
 
-    const handleCalcValue = (data, type) => {
-        const maxValue = data.reduce((acc, cur) => {
-            const curData = cur.rawData();
-
-            if (curData.length) {
-                switch (type) {
-                    case 'max':
-                        const maxValue = Math.max(...curData.map(Number));
-
-                        if (maxValue > acc) {
-                            acc = maxValue;
-                        };
-                        break;
-                    case 'min':
-                        const minValue = Math.min(...curData.map(Number));
-
-                        if (minValue && ((minValue && !acc) || (minValue < acc))) {
-                            acc = minValue;
-                        };
-                        break;
-                    default :
-                        return acc;
-                }
-            }
-
-            return acc;
-        }, 0);
-
-        return `$${maxValue}`;
-    }
-
     const series = result?.data().series().toArray();
     const slices = result?.data().slices().toArray();
 
@@ -86,12 +60,13 @@ export const CustomComponent = (props) => {
     if (series && slices) {    
         switch (selectorValue.value) {
             case 1:
-                calculationsResult = handleCalcValue(series, 'max');
+                calculationsResult = handleCalcAbsolute(series, 'max');
                 break;
             case 2:
-                calculationsResult = handleCalcValue(series, 'min');
+                calculationsResult = handleCalcAbsolute(series, 'min');
                 break;
             default:
+                calculationsResult = handleCalcQuantiles(series);
                 break;
         }
     }
@@ -100,10 +75,12 @@ export const CustomComponent = (props) => {
         setSelectorValue(value);
     }
 
+    const formattedCalculationsResult = getFormattedCalculations(calculationsResult);
+
     return (
         <div className={styles.CustomComponent}>
             <div className={styles.CalculationResult}>
-                <span>{calculationsResult}</span>
+                <span>{formattedCalculationsResult}</span>
             </div>
             <Select
                 className={styles.Select}
