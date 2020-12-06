@@ -62,6 +62,16 @@ const defaultDateFilterOptions = {
                 visible: true,
                 name: "4 years ago",
             },
+
+            {
+                from: -10,
+                to: -10,
+                granularity: "GDC.time.year",
+                localIdentifier: "tenYearsAgo",
+                type: "relativePreset",
+                visible: true,
+                name: "10 years ago",
+            },
         ],
     },
 };

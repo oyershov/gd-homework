@@ -83,9 +83,8 @@ export const CustomComponent = (props) => {
         const series = result?.data().series().toArray();
         const slices = result?.data().slices().toArray();
 
+        let updatedResult = EMPTY_DATA_VALUE;  
         if (series && slices) {      
-            let updatedResult = '';  
-
             switch (selectorValue.value) {
                 case 1:
                     updatedResult = handleCalcValue(series, 'max');
@@ -94,12 +93,11 @@ export const CustomComponent = (props) => {
                     updatedResult = handleCalcValue(series, 'min');
                     break;
                 default:
-                    updatedResult = EMPTY_DATA_VALUE;
                     break;
             }
-
-            setCalculationsResult(updatedResult);
         }
+
+        setCalculationsResult(updatedResult);
     }, [result, selectorValue.value]);
 
     const onChange = (value) => {
