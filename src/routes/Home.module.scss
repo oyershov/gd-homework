@@ -7,17 +7,31 @@
 .HomeRow {
     display: flex;
     width: 100%;
+    
+    .HomeRowElement {
+        display: flex;
+        margin: 5px;
+
+        &:first-child {
+            width: 70%;
+        }
+
+        &:last-child {
+            width: 30%;
+        }
+    }
 }
 
-.HomeRow > .HomeRowElement {
-    display: flex;
-    margin: 5px;
-
-    &:first-child {
-        width: 70%;
-    }
-
-    &:last-child {
-        width: 30%;
+@media (max-width: 768px) { 
+    .HomeRow {
+        display: flex;
+        flex-direction: column;
+        
+        .HomeRowElement {
+            &:first-child,
+            &:last-child {
+                width: 100%;
+            }
+        }
     }
 }
