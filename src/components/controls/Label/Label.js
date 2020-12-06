@@ -3,7 +3,7 @@ import cx from "classnames";
 
 import styles from "./Label.module.scss";
 
-const Label = ({ className = null, type = "text", children, hasError = false, ...restProps }) => {
+const LabelComponent = ({ className = null, type = "text", children, hasError = false, ...restProps }) => {
     return (
         <label className={cx(styles.Label, hasError && styles.Error, className)} {...restProps}>
             {children}
@@ -11,4 +11,4 @@ const Label = ({ className = null, type = "text", children, hasError = false, ..
     );
 };
 
-export default Label;
+export const Label = LabelComponent;

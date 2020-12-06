@@ -1,10 +1,9 @@
 import React from "react";
 
-import Page from "../components/Page";
-import LoginForm from "../components/Auth/LoginForm";
+import { LoginForm, Page } from "../components";
 import { useAuth } from "../contexts/Auth";
 
-import styles from "../components/Page.module.scss";
+import styles from "../components/Page/Page.module.scss";
 
 function Login() {
     const { login, authError } = useAuth();

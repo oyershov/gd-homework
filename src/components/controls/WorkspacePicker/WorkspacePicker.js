@@ -1,9 +1,9 @@
 import React from "react";
 import last from "lodash/last";
 
-import InlineLoading from "../InlineLoading";
-import { useWorkspace } from "../../contexts/Workspace";
-import { useWorkspaceList } from "../../contexts/WorkspaceList";
+import { useWorkspace } from "../../../contexts/Workspace";
+import { useWorkspaceList } from "../../../contexts/WorkspaceList";
+import { InlineLoading } from "../../";
 
 import styles from "./WorkspacePicker.module.scss";
 
@@ -25,7 +25,7 @@ const workspaceOptions = workspaces =>
         );
     });
 
-const WorkspacePicker = () => {
+const WorkspacePickerComponent = () => {
     const { workspace, setWorkspace } = useWorkspace();
     const workspaceList = useWorkspaceList();
 
@@ -56,4 +56,4 @@ const WorkspacePicker = () => {
     );
 };
 
-export default WorkspacePicker;
+export const WorkspacePicker = WorkspacePickerComponent;

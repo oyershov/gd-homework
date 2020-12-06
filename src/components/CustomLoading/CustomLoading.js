@@ -5,7 +5,7 @@ import styles from "./CustomLoading.module.scss";
 
 const baseAnimationDuration = 1.8;
 
-export const CustomLoading = ({
+const CustomLoadingComponent = ({
     label = null,
     inline = false,
     height = "100%",
@@ -71,4 +71,4 @@ export const CustomLoading = ({
     );
 };
 
-export default CustomLoading;
+export const CustomLoading = CustomLoadingComponent;

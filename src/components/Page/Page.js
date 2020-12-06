@@ -1,12 +1,11 @@
 import React from "react";
 import Helmet from "react-helmet";
 import cx from "classnames";
-import Header from "./Header/Header";
-import Footer from "./Footer";
+import { Footer, Header } from "../";
 
 import styles from "./Page.module.scss";
 
-const Page = ({ children, className = null, mainClassName = null, title = "GoodData App" }) => {
+const PageComponent = ({ children, className = null, mainClassName = null, title = "GoodData App" }) => {
     return (
         <div className={cx(styles.Page, className)}>
             <Helmet>
@@ -19,4 +18,4 @@ const Page = ({ children, className = null, mainClassName = null, title = "GoodD
     );
 };
 
-export default Page;
+export const Page = PageComponent;

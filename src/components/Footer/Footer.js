@@ -2,10 +2,10 @@ import React from "react";
 
 import styles from "./Footer.module.scss";
 
-import githubUri from "../media/github-logo.png";
-import stackOverflowUri from "../media/stack-overflow-logo.png";
-import twitterUri from "../media/twitter-logo.png";
-import npmUri from "../media/npm-logo.png";
+import githubUri from "../../media/github-logo.png";
+import stackOverflowUri from "../../media/stack-overflow-logo.png";
+import twitterUri from "../../media/twitter-logo.png";
+import npmUri from "../../media/npm-logo.png";
 
 const SocialItem = ({ link, title, imageUri }) => (
     <a href={link} target="_blank" rel="noopener noreferrer" className={styles.FooterLink}>
@@ -14,7 +14,7 @@ const SocialItem = ({ link, title, imageUri }) => (
     </a>
 );
 
-const Footer = () => {
+const FooterComponent = () => {
     return (
         <footer className={styles.Footer}>
             <section className={styles.FooterLinks}>
@@ -57,4 +57,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export const Footer = FooterComponent;

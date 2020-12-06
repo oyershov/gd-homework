@@ -11,6 +11,7 @@
         "@gooddata/sdk-ui-filters": "^8.1.0",
         "@gooddata/sdk-ui-geo": "^8.1.0",
         "@gooddata/sdk-ui-pivot": "^8.1.0",
+        "@types/jest": "^26.0.16",
         "classnames": "^2.2.6",
         "formik": "^1.5.7",
         "lodash": "^4.17.15",

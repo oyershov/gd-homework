@@ -5,10 +5,8 @@ import { withFormik } from "formik";
 import { string, object } from "yup";
 
 import C from "../../constants";
-import CustomLoading from "../CustomLoading";
-import Input from "../controls/Input";
-import Label from "../controls/Label";
-import Button from "../controls/Button";
+import { Button, Input, Label } from "../controls";
+import { CustomLoading } from "../";
 
 import styles from "./LoginForm.module.scss";
 import sharedStyles from "../../shared.module.scss";
@@ -127,4 +125,4 @@ const formikConnector = withFormik({
     },
 });
 
-export default withRouter(formikConnector(LoginFormComponent));
+export const LoginForm = withRouter(formikConnector(LoginFormComponent));

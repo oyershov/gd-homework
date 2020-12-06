@@ -5,7 +5,7 @@ import cx from "classnames";
 import styles from "./Header.module.scss";
 import { useAuth } from "../../contexts/Auth";
 import { AuthStatus } from "../../contexts/Auth/state";
-import InlineLoading from "../InlineLoading";
+import { InlineLoading } from "../";
 
 const Aside = () => {
     const { authStatus } = useAuth();

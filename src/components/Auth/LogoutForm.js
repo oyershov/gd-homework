@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import CustomLoading from "../CustomLoading";
+import { CustomLoading } from "../";
 
-const LogoutForm = ({ history, logout }) => {
+const LogoutFormComponent = ({ history, logout }) => {
     useEffect(
         () => {
             logout().then(() => history.push("/login"));
@@ -14,4 +14,4 @@ const LogoutForm = ({ history, logout }) => {
     return <CustomLoading label="Logging you out..." />;
 };
 
-export default withRouter(LogoutForm);
+export const LogoutForm = withRouter(LogoutFormComponent);

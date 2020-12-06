@@ -46,7 +46,7 @@ const BurgerMenu = () => {
     );
 };
 
-const Header = () => {
+const HeaderComponent = () => {
     const [windowWidth, setWindowWidth] = useState(window ? window.innerWidth : null);
 
     const handleResize = useCallback(
@@ -92,4 +92,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export const Header = HeaderComponent;

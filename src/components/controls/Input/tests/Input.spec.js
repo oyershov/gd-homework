@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-import Input from "../Input";
+import { Input } from "../";
 
 describe("Input component", () => {
     it("should render type correctly", () => {
