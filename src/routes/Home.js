@@ -40,7 +40,7 @@ const Home = () => {
                     <Chart dateFilter={state.dateFilter.value} />
                 </div>
                 <div className={styles.HomeRowElement}>
-                    <CustomComponent />
+                    <CustomComponent dateFilter={state.dateFilter.value} />
                 </div>
             </div>
         </Page>
