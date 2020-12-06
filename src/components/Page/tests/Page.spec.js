@@ -1,9 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-import Page from "../Page";
-import Header from "../Header/Header";
-import Footer from "../Footer";
+import { Footer, Header, Page } from "../../";
 
 describe("Page component", () => {
     it("should render Header", () => {

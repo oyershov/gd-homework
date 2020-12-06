@@ -1,4 +1,8 @@
 export const handleCalcAbsolute = (data, type) => {
+    if (!data) {
+        return 0;
+    }
+
     const maxValue = data.reduce((acc, cur) => {
         const curData = cur.rawData();
 

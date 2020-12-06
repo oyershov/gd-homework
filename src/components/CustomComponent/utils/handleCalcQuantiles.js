@@ -1,4 +1,8 @@
 export const handleCalcQuantiles = (data) => {
+    if (!data) {
+        return 0;
+    }
+
     const dataList = data.reduce((acc, cur) => {
         const curData = cur.rawData();
 
