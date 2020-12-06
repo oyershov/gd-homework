@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useExecution, useDataView } from "@gooddata/sdk-ui";
 import { newRelativeDateFilter } from "@gooddata/sdk-model";
@@ -30,7 +30,6 @@ const selectorStyles = {
 
 export const CustomComponent = (props) => {
     const [selectorValue, setSelectorValue] = useState(CALCULATION_OPTIONS[0]);
-    const [calculationsResult, setCalculationsResult] = useState(EMPTY_DATA_VALUE);
 
     const filters = props.dateFilter ? [
         newRelativeDateFilter(
@@ -45,7 +44,7 @@ export const CustomComponent = (props) => {
         slicesBy: [Ldm.DateMonth.Short],
         filters,
     });
-
+    
     const { result } = useDataView({ execution }, [execution?.fingerprint()]);
 
     const handleCalcValue = (data, type) => {
@@ -79,26 +78,23 @@ export const CustomComponent = (props) => {
         return `$${maxValue}`;
     }
 
-    useEffect(() => {
-        const series = result?.data().series().toArray();
-        const slices = result?.data().slices().toArray();
+    const series = result?.data().series().toArray();
+    const slices = result?.data().slices().toArray();
 
-        let updatedResult = EMPTY_DATA_VALUE;  
-        if (series && slices) {      
-            switch (selectorValue.value) {
-                case 1:
-                    updatedResult = handleCalcValue(series, 'max');
-                    break;
-                case 2:
-                    updatedResult = handleCalcValue(series, 'min');
-                    break;
-                default:
-                    break;
-            }
+    let calculationsResult = EMPTY_DATA_VALUE;  
+
+    if (series && slices) {    
+        switch (selectorValue.value) {
+            case 1:
+                calculationsResult = handleCalcValue(series, 'max');
+                break;
+            case 2:
+                calculationsResult = handleCalcValue(series, 'min');
+                break;
+            default:
+                break;
         }
-
-        setCalculationsResult(updatedResult);
-    }, [result, selectorValue.value]);
+    }
 
     const onChange = (value) => {
         setSelectorValue(value);
