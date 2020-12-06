@@ -5,7 +5,7 @@ import * as Ldm from "../../ldm/full";
 
 const measures = [Ldm.PercentRevenue];
 
-const lineChartContainerStyle = { height: 300 };
+const lineChartContainerStyle = { height: 300, width: '100%' };
 
 const ChartComponent = () => {
     return (

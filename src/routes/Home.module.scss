@@ -1,46 +1,23 @@
 @import "../theme.scss";
 
-.Placeholder {
-    min-height: 200px;
-}
-.PlaceholderIcon {
-    width: 3em;
-    height: 3em;
-    display: inline-flex;
-    margin-right: $spacing / 2;
+.Home {
+    display: flex;
 }
 
-.DateFilterCol {
-    text-align: right;
+.HomeRow {
+    display: flex;
+    width: 100%;
 }
 
-.VisPickerInline {
-    display: inline-block;
-}
+.HomeRow > .HomeRowElement {
+    display: flex;
+    margin: 5px;
 
-.HeadingWithAside {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-gap: $spacing;
-}
-
-.CircleIcon {
-    background-color: $color-box;
-    vertical-align: middle;
-    border-radius: 50% 50%;
-    width: 3rem;
-    height: 3rem;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    :global(img) {
-        height: 2.5rem;
+    &:first-child {
+        width: 70%;
     }
-}
 
-.Clear {
-    margin: -$spacing 0 $spacing 4rem;
-    color: $color-text-muted;
+    &:last-child {
+        width: 30%;
+    }
 }
