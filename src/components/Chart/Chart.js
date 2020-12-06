@@ -3,7 +3,7 @@ import { LineChart } from "@gooddata/sdk-ui-charts";
 
 import * as Ldm from "../../ldm/full";
 
-const measures = [Ldm.PercentRevenue];
+const measures = [Ldm.Revenue];
 
 const lineChartContainerStyle = { height: 300, width: '100%' };
 
@@ -13,6 +13,7 @@ const ChartComponent = (props) => {
             <LineChart
                 measures={measures}
                 trendBy={Ldm.DateMonth.Short}
+                segmentBy={Ldm.Product.Default}
                 filters={props.dateFilter ? [props.dateFilter] : []}
             />
         </div>
