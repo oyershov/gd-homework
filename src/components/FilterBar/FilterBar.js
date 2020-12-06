@@ -6,13 +6,6 @@ import styles from "./FilterBar.module.scss";
 const availableGranularities = ["GDC.time.year"];
 
 const defaultDateFilterOptions = {
-    allTime: {
-        localIdentifier: "ALL_TIME",
-        type: "allTime",
-        name: "All time",
-        visible: true,
-    },
-
     relativePreset: {
         "GDC.time.year": [
             {
@@ -78,7 +71,7 @@ const defaultDateFilterOptions = {
 
 export const FilterBarComponent = (props) => {
     const [state, setState] = useState({
-        selectedFilterOption: defaultDateFilterOptions.allTime,
+        selectedFilterOption: defaultDateFilterOptions.relativePreset["GDC.time.year"][0],
         excludeCurrentPeriod: false,
     });
 

@@ -13,7 +13,7 @@ const Home = () => {
     const [state, setState] = useState({
         dateFilter: {
             value: undefined,
-            name: 'All time',
+            name: 'This year',
         },
     });
 
