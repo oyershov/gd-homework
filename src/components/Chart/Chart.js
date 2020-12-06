@@ -7,12 +7,13 @@ const measures = [Ldm.PercentRevenue];
 
 const lineChartContainerStyle = { height: 300, width: '100%' };
 
-const ChartComponent = () => {
+const ChartComponent = (props) => {
     return (
         <div style={lineChartContainerStyle}>
             <LineChart
                 measures={measures}
                 trendBy={Ldm.DateMonth.Short}
+                filters={props.dateFilter ? [props.dateFilter] : []}
             />
         </div>
     );

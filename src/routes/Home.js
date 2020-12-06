@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useState } from "react"
 import styles from "./Home.module.scss";
 
 import {
@@ -9,14 +9,22 @@ import {
 } from "../components";
 
 const Home = () => {
+    const [state, setState] = useState({
+        dateFilter: undefined,
+    });
+
+    const handleApplyDateFilter = useCallback((dateFilter) => {
+        setState({ dateFilter: dateFilter });
+    }, []);
+
     return (
         <Page className={styles.Home}>
             <div className={styles.HomeRow}>
-                <FilterBar />
+                <FilterBar applyDateFilter={handleApplyDateFilter}/>
             </div>
             <div className={styles.HomeRow}>
                 <div className={styles.HomeRowElement}>
-                    <Chart />
+                    <Chart dateFilter={state.dateFilter} />
                 </div>
                 <div className={styles.HomeRowElement}>
                     <CustomComponent />
