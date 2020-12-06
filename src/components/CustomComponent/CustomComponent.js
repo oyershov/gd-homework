@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Select from "react-select";
 import { useExecution, useDataView } from "@gooddata/sdk-ui";
 import { newRelativeDateFilter } from "@gooddata/sdk-model";
 import compact from "lodash/compact";
+import styles from "./CustomComponent.module.scss";
 
 import * as Ldm from "../../ldm/full";
 
+const CALCULATION_OPTIONS = [
+    {
+        label: 'Maximum Revenue across different products',
+        value: 1,
+    },
+    {
+        label: 'Minimum Revenue across different products',
+        value: 2,
+    },
+    {
+        label: 'Quantiles',
+        value: 3,
+    }
+];
+
+const EMPTY_DATA_VALUE = 'N/A';
+
+const selectorStyles = {
+    control: styles => ({ ...styles, height: '40px', width: '100%' }),
+};
+
 export const CustomComponent = (props) => {
+    const [selectorValue, setSelectorValue] = useState(CALCULATION_OPTIONS[0]);
+    const [calculationsResult, setCalculationsResult] = useState(EMPTY_DATA_VALUE);
+
     const filters = props.dateFilter ? [
         newRelativeDateFilter(
             Ldm.DateDatasets.Date,
@@ -20,20 +46,78 @@ export const CustomComponent = (props) => {
         filters,
     });
 
-    const { result, error, status } = useDataView({ execution }, [execution?.fingerprint()]);
-    const series = result?.data().series().toArray();
-    const slices = result?.data().slices().toArray();
+    const { result } = useDataView({ execution }, [execution?.fingerprint()]);
 
-    window.console.log('series: ', series);
-    window.console.log('slices: ', slices);
+    const handleCalcValue = (data, type) => {
+        const maxValue = data.reduce((acc, cur) => {
+            const curData = cur.rawData();
+
+            if (curData.length) {
+                switch (type) {
+                    case 'max':
+                        const maxValue = Math.max(...curData.map(Number));
+
+                        if (maxValue > acc) {
+                            acc = maxValue;
+                        };
+                        break;
+                    case 'min':
+                        const minValue = Math.min(...curData.map(Number));
+
+                        if (minValue && ((minValue && !acc) || (minValue < acc))) {
+                            acc = minValue;
+                        };
+                        break;
+                    default :
+                        return acc;
+                }
+            }
+
+            return acc;
+        }, 0);
+
+        return `$${maxValue}`;
+    }
+
+    useEffect(() => {
+        const series = result?.data().series().toArray();
+        const slices = result?.data().slices().toArray();
+
+        if (series && slices) {      
+            let updatedResult = '';  
+
+            switch (selectorValue.value) {
+                case 1:
+                    updatedResult = handleCalcValue(series, 'max');
+                    break;
+                case 2:
+                    updatedResult = handleCalcValue(series, 'min');
+                    break;
+                default:
+                    updatedResult = EMPTY_DATA_VALUE;
+                    break;
+            }
+
+            setCalculationsResult(updatedResult);
+        }
+    }, [result, selectorValue.value]);
+
+    const onChange = (value) => {
+        setSelectorValue(value);
+    }
 
     return (
-        <div style={{ display: "flex" }}>
-            <select defaultValue="1">
-                <option value="1">Maximum Revenue across different products</option>
-                <option value="2">Minimum Revenue across different products</option>
-                <option value="3">Quantiles</option>
-            </select>
+        <div className={styles.CustomComponent}>
+            <div className={styles.CalculationResult}>
+                <span>{calculationsResult}</span>
+            </div>
+            <Select
+                className={styles.Select}
+                onChange={onChange}
+                options={CALCULATION_OPTIONS}
+                value={selectorValue}
+                styles={selectorStyles}
+            />
         </div>
     );
 };

@@ -1,0 +1,21 @@
+.CustomComponent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.Select {
+    display: flex;
+    height: max-content;
+    width: 100%;
+}
+
+.CalculationResult {
+    display: flex;
+    margin-bottom: 100px;
+
+    span {
+        font-size: 38px;
+        font-weight: bold;
+    }
+}
